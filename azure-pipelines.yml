@@ -13,16 +13,19 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenOptions: '-Xmx3072m'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: true
+    isJacocoCoverageReportXML: true
+    sqMavenPluginVersionChoice: 'latest'
 
-- task: Npm@1
+- task: SonarQubePublish@5
   inputs:
-    command: 'install'
-    customRegistry: 'useFeed'
-    customFeed: '60e21524-d687-45c6-94e6-fa9ceaa25fd2'
+    pollingTimeoutSec: '300'
+
